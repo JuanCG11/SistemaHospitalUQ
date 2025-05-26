@@ -1,4 +1,6 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
-public class HistorialMedico {
+import java.time.LocalDate;
+
+public record HistorialMedico(LocalDate fecha, String descripcion, String medico) {
 }
