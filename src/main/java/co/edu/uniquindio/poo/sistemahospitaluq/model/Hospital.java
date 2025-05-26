@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Hospital {
 
@@ -8,14 +9,19 @@ public class Hospital {
     private ArrayList<Paciente> pacientes;
     private ArrayList<Medico> medicos;
     private ArrayList<Administrador> administradores;
+    private ArrayList<CitaMedica>citas;
+    private ArrayList<Sala> salas;
 
     public Hospital(String nombre) {
         this.nombre = nombre;
         this.pacientes = new ArrayList<>();
         this.medicos = new ArrayList<>();
         this.administradores = new ArrayList<>();
-    }
+        this.salas = new ArrayList<>();
+        this.citas = new ArrayList<>();
 
+    }
+    // Registro de usuarios
     public void registrarPaciente(Paciente paciente) {
         pacientes.add(paciente);
     }
@@ -26,6 +32,35 @@ public class Hospital {
 
     public void registrarAdministrador(Administrador admin) {
         administradores.add(admin);
+    }
+
+    // Gestión de citas
+    public void registrarCita(CitaMedica cita) {
+        citas.add(cita);
+    }
+
+    // Gestión de salas
+    public void registrarSala(Sala sala) {
+        salas.add(sala);
+    }
+
+    public Sala buscarSalaPorId(String id) {
+        for (Sala sala : salas) {
+            if (sala.getId().equals(id)) {
+                return sala;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Sala> getSalasDisponibles() {
+        ArrayList<Sala> disponibles = new ArrayList<>();
+        for (Sala sala : salas) {
+            if (sala.isDisponible()) {
+                disponibles.add(sala);
+            }
+        }
+        return disponibles;
     }
 
     public String getNombre() {
@@ -58,5 +93,21 @@ public class Hospital {
 
     public void setAdministradores(ArrayList<Administrador> administradores) {
         this.administradores = administradores;
+    }
+
+    public ArrayList<Sala> getSalas() {
+        return salas;
+    }
+
+    public void setSalas(ArrayList<Sala> salas) {
+        this.salas = salas;
+    }
+
+    public ArrayList<CitaMedica> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(ArrayList<CitaMedica> citas) {
+        this.citas = citas;
     }
 }
