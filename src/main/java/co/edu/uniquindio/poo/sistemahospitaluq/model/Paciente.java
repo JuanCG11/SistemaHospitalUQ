@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
+
 import java.util.ArrayList;
 
 public class Paciente extends Usuario implements IGestionCitas, IGestionHistorial{
