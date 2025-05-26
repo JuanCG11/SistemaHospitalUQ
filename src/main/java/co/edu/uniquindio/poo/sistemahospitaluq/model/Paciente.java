@@ -2,14 +2,14 @@ package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
 import java.util.ArrayList;
 
-public class Paciente extends Usuario {
-    private ArrayList<HistorialMedico> historialMedico;
-    private ArrayList<CitaMedica> citasProgramadas;
+public class Paciente extends Usuario implements IGestionCitas, IGestionHistorial{
+    private ArrayList<HistorialMedico> historial;
+    private ArrayList<CitaMedica> citas;
 
     public Paciente(String id, String nombre, String correo, String telefono) {
         super(id, nombre, correo, telefono);
-        this.historialMedico = new ArrayList<>();
-        this.citasProgramadas = new ArrayList<>();
+        this.historial = new ArrayList<>();
+        this.citas = new ArrayList<>();
     }
 
     @Override
@@ -17,32 +17,35 @@ public class Paciente extends Usuario {
         return "Paciente";
     }
 
-    public ArrayList<CitaMedica> getCitasProgramadas() {
-        return citasProgramadas;
+    public ArrayList<CitaMedica> getCitas() {
+        return citas;
     }
 
-    public void setCitasProgramadas(ArrayList<CitaMedica> citasProgramadas) {
-        this.citasProgramadas = citasProgramadas;
+    public void setCitas(ArrayList<CitaMedica> citas) {
+        this.citas = citas;
     }
 
-    public ArrayList<HistorialMedico> getHistorialMedico() {
-        return historialMedico;
+    public ArrayList<HistorialMedico> getHistorial() {
+        return historial;
     }
 
-    public void setHistorialMedico(ArrayList<HistorialMedico> historialMedico) {
-        this.historialMedico = historialMedico;
+    public void setHistorial(ArrayList<HistorialMedico> historial) {
+        this.historial = historial;
     }
 
-    public void agregarDiagnostico(String diagnostico) {
-        historialMedico.add(diagnostico);
+    @Override
+    public void agendarCita(CitaMedica cita) {
+        citas.add(cita);
     }
 
-    public void agendarCita(String cita) {
-        citasProgramadas.add(cita);
+    @Override
+    public void cancelarCita(CitaMedica cita) {
+        citas.remove(cita);
     }
 
-    public void cancelarCita(String cita) {
-        citasProgramadas.remove(cita);
+    @Override
+    public void agregarEntradaHistorial(HistorialMedico entrada) {
+        historial.add(entrada);
     }
 
 }
