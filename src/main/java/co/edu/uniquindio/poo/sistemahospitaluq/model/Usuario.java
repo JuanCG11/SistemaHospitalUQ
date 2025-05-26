@@ -3,13 +3,13 @@ package co.edu.uniquindio.poo.sistemahospitaluq.model;
 public abstract  class Usuario {
 
     protected String nombre;
-    protected String cedula;
+    protected String id;
     protected String correo;
     protected String telefono;
 
-    public Usuario(String nombre, String cedula, String correo, String telefono){
+    public Usuario(String nombre, String id, String correo, String telefono){
         this.nombre = nombre;
-        this.cedula = cedula;
+        this.id = id;
         this.correo = correo;
         this.telefono = telefono;
     }
@@ -24,12 +24,12 @@ public abstract  class Usuario {
         this.nombre = nombre;
     }
 
-    public String getCedula() {
-        return cedula;
+    public String getId() {
+        return id;
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCorreo() {
@@ -47,4 +47,6 @@ public abstract  class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public abstract String getTipoUsuario();
 }
