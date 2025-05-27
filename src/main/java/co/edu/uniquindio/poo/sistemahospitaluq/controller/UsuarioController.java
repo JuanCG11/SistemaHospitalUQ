@@ -3,94 +3,96 @@ package co.edu.uniquindio.poo.sistemahospitaluq.controller;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
+
+  //Controlador de lógica para manejar operaciones relacionadas con usuarios del hospital.
+  //Aplica sobre pacientes, médicos y administradores.
 
 public class UsuarioController {
     private final Hospital hospital;
 
     public UsuarioController(Hospital hospital) {
-        if (hospital == null) {
-            throw new IllegalArgumentException("Hospital no puede ser null");
-        }
         this.hospital = hospital;
     }
 
-    // -------------------------
-    // REGISTRO DE USUARIOS
-    // -------------------------
+    // ---------------------
+    // PACIENTES
+    // ---------------------
 
-    public void registrarPaciente(String cedula, String nombre, String correo, String telefono) {
-        Paciente paciente = new Paciente(cedula, nombre, correo, telefono);
+    public boolean registrarPaciente(Paciente paciente) {
+        if (hospital.buscarPacientePorCedula(paciente.getCedula()) != null) {
+            return false; // Ya existe
+        }
         hospital.registrarPaciente(paciente);
+        return true;
     }
 
-    public void registrarMedico(String cedula, String nombre, String correo, String telefono, Especialidad especialidad) {
-        Medico medico = new Medico(cedula, nombre, correo, telefono, especialidad);
-        hospital.registrarMedico(medico);
-    }
-
-    public void registrarAdministrador(String cedula, String nombre, String correo, String telefono) {
-        Administrador admin = new Administrador(cedula, nombre, correo, telefono);
-        hospital.registrarAdministrador(admin);
-    }
-
-    // -------------------------
-    // MODIFICACIÓN DE USUARIOS
-    // -------------------------
-
-    public void modificarPaciente(String cedula, String nuevoNombre, String nuevoCorreo, String nuevoTelefono) {
+    public boolean eliminarPaciente(String cedula) {
         Paciente paciente = hospital.buscarPacientePorCedula(cedula);
-        if (paciente == null) {
-            throw new IllegalArgumentException("Paciente no encontrado");
+        if (paciente != null) {
+            return hospital.getPacientes().remove(paciente);
         }
-        paciente.actualizarDatos(nuevoNombre, nuevoCorreo, nuevoTelefono);
+        return false;
     }
 
-    public void modificarMedico(String cedula, String nuevoNombre, String nuevoCorreo, String nuevoTelefono) {
-        Medico medico = hospital.buscarMedicoPorCedula(cedula);
-        if (medico == null) {
-            throw new IllegalArgumentException("Médico no encontrado");
-        }
-        medico.actualizarDatos(nuevoNombre, nuevoCorreo, nuevoTelefono);
-    }
-
-    // -------------------------
-    // ELIMINACIÓN DE USUARIOS
-    // -------------------------
-
-    public void eliminarPaciente(String cedula) {
+    public boolean modificarPaciente(String cedula, String nombre, String correo, String telefono) {
         Paciente paciente = hospital.buscarPacientePorCedula(cedula);
-        if (paciente == null) {
-            throw new IllegalArgumentException("Paciente no encontrado");
-        }
-        hospital.getPacientes().remove(paciente);
+        if (paciente == null) return false;
+
+        paciente.actualizarDatos(nombre, correo, telefono);
+        return true;
     }
 
-    public void eliminarMedico(String cedula) {
-        Medico medico = hospital.buscarMedicoPorCedula(cedula);
-        if (medico == null) {
-            throw new IllegalArgumentException("Médico no encontrado");
-        }
-        hospital.getMedicos().remove(medico);
-    }
-
-    // -------------------------
-    // CONSULTAS
-    // -------------------------
-
-    public ArrayList<Paciente> obtenerPacientes() {
-        return hospital.getPacientes();
-    }
-
-    public ArrayList<Medico> obtenerMedicos() {
-        return hospital.getMedicos();
-    }
-
-    public Paciente buscarPacientePorCedula(String cedula) {
+    public Paciente buscarPaciente(String cedula) {
         return hospital.buscarPacientePorCedula(cedula);
     }
 
-    public Medico buscarMedicoPorCedula(String cedula) {
+    public List<Paciente> obtenerTodosLosPacientes() {
+        return new ArrayList<>(hospital.getPacientes());
+    }
+
+    // ---------------------
+    // MÉDICOS
+    // ---------------------
+
+    public boolean registrarMedico(Medico medico) {
+        if (hospital.buscarMedicoPorCedula(medico.getCedula()) != null) {
+            return false; // Ya existe
+        }
+        hospital.registrarMedico(medico);
+        return true;
+    }
+
+    public boolean eliminarMedico(String cedula) {
+        Medico medico = hospital.buscarMedicoPorCedula(cedula);
+        if (medico != null) {
+            return hospital.getMedicos().remove(medico);
+        }
+        return false;
+    }
+
+    public boolean modificarMedico(String cedula, String nombre, String correo, String telefono) {
+        Medico medico = hospital.buscarMedicoPorCedula(cedula);
+        if (medico == null) return false;
+
+        medico.actualizarDatos(nombre, correo, telefono);
+        return true;
+    }
+
+    public Medico buscarMedico(String cedula) {
         return hospital.buscarMedicoPorCedula(cedula);
+    }
+
+    public List<Medico> obtenerTodosLosMedicos() {
+        return new ArrayList<>(hospital.getMedicos());
+    }
+
+    // ---------------------
+    // ADMINISTRADORES
+    // ---------------------
+
+    public List<Administrador> obtenerAdministradores() {
+        return new ArrayList<>(hospital.getAdministradores());
     }
 }
