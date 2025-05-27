@@ -56,7 +56,7 @@
         <executions>
           <execution>
             <!-- Default configuration for running with: mvn clean javafx:run -->
-            <id>default-cli</id>
+            <cedula>default-cli</cedula>
             <configuration>
               <mainClass>co.edu.uniquindio.poo.sistemahospitaluq/co.edu.uniquindio.poo.sistemahospitaluq.HelloApplication</mainClass>
               <launcher>app</launcher>

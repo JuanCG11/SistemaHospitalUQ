@@ -8,8 +8,10 @@ public class Medico extends Usuario implements IGestionHistorial {
     private ArrayList<String> pacientesAsignados;
     private ArrayList<HistorialMedico> registros;
 
-    public Medico(String id, String nombre, String correo, String telefono, Especialidad especialidad) {
-        super(id, nombre, correo, telefono);
+    public Medico(String cedula, String nombre, String correo, String telefono, Especialidad especialidad) {
+        super(cedula, nombre, correo, telefono);
+        if (especialidad == null) throw new IllegalArgumentException("La especialidad no puede ser null");
+
         this.especialidad = especialidad;
         this.horarios = new ArrayList<>();
         this.pacientesAsignados = new ArrayList<>();
@@ -21,10 +23,12 @@ public class Medico extends Usuario implements IGestionHistorial {
         return "Médico";
     }
     public void agregarHorario(String horario) {
+        if (horario == null || horario.isBlank()) throw new IllegalArgumentException("El horario no puede estar vacío");
         horarios.add(horario);
     }
 
     public void asignarPaciente(String pacienteId) {
+        if (pacienteId == null || pacienteId.isBlank()) throw new IllegalArgumentException("ID de paciente inválido");
         pacientesAsignados.add(pacienteId);
     }
 
@@ -62,6 +66,7 @@ public class Medico extends Usuario implements IGestionHistorial {
 
     @Override
     public void agregarEntradaHistorial(HistorialMedico entrada) {
-
+        if (entrada == null) throw new IllegalArgumentException("El historial no puede ser null");
+        registros.add(entrada);
     }
 }

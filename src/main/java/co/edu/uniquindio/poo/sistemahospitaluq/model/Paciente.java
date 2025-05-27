@@ -7,8 +7,8 @@ public class Paciente extends Usuario implements IGestionCitas, IGestionHistoria
     private ArrayList<HistorialMedico> historial;
     private ArrayList<CitaMedica> citas;
 
-    public Paciente(String id, String nombre, String correo, String telefono) {
-        super(id, nombre, correo, telefono);
+    public Paciente(String cedula, String nombre, String correo, String telefono) {
+        super(cedula, nombre, correo, telefono);
         this.historial = new ArrayList<>();
         this.citas = new ArrayList<>();
     }
@@ -34,18 +34,22 @@ public class Paciente extends Usuario implements IGestionCitas, IGestionHistoria
         this.historial = historial;
     }
 
+
     @Override
     public void agendarCita(CitaMedica cita) {
+        if (cita == null) throw new IllegalArgumentException("La cita no puede ser null");
         citas.add(cita);
     }
 
     @Override
     public void cancelarCita(CitaMedica cita) {
+        if (cita == null) throw new IllegalArgumentException("La cita no puede ser null");
         citas.remove(cita);
     }
 
     @Override
     public void agregarEntradaHistorial(HistorialMedico entrada) {
+        if (entrada == null) throw new IllegalArgumentException("El historial no puede ser null");
         historial.add(entrada);
     }
 

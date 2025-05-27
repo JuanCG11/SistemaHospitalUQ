@@ -1,5 +1,8 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
+
+import java.util.Objects;
+
 public class Sala {
     private String id;
     private String nombre;
@@ -38,5 +41,17 @@ public class Sala {
     @Override
     public String toString() {
         return nombre + " (ID: " + id + ") - " + (disponible ? "Disponible" : "Ocupada");
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sala sala = (Sala) o;
+        return id.equals(sala.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

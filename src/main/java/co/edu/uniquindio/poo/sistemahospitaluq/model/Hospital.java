@@ -23,14 +23,24 @@ public class Hospital {
     }
     // Registro de usuarios
     public void registrarPaciente(Paciente paciente) {
+        if (paciente == null) throw new IllegalArgumentException("El paciente no puede ser null");
+        if (buscarPacientePorCedula(paciente.getCedula()) != null) {
+            throw new IllegalArgumentException("Ya existe un paciente con esa cédula");
+        }
         pacientes.add(paciente);
     }
 
+
     public void registrarMedico(Medico medico) {
+        if (medico == null) throw new IllegalArgumentException("El médico no puede ser null");
+        if (buscarMedicoPorCedula(medico.getCedula()) != null) {
+            throw new IllegalArgumentException("Ya existe un médico con esa cédula");
+        }
         medicos.add(medico);
     }
 
     public void registrarAdministrador(Administrador admin) {
+        if (admin == null) throw new IllegalArgumentException("El administrador no puede ser null");
         administradores.add(admin);
     }
 
@@ -38,9 +48,20 @@ public class Hospital {
     public void registrarCita(CitaMedica cita) {
         citas.add(cita);
     }
+    public Paciente buscarPacientePorCedula(String cedula) {
+        return pacientes.stream().filter(p -> p.getCedula().equals(cedula)).findFirst().orElse(null);
+    }
+
+    public Medico buscarMedicoPorCedula(String cedula) {
+        return medicos.stream().filter(m -> m.getCedula().equals(cedula)).findFirst().orElse(null);
+    }
 
     // Gestión de salas
     public void registrarSala(Sala sala) {
+        if (sala == null) throw new IllegalArgumentException("La sala no puede ser null");
+        if (buscarSalaPorId(sala.getId()) != null) {
+            throw new IllegalArgumentException("Ya existe una sala con ese ID");
+        }
         salas.add(sala);
     }
 

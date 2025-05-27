@@ -1,15 +1,22 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
+import java.util.Objects;
+
 public abstract  class Usuario {
 
     protected String nombre;
-    protected String id;
+    protected String cedula;
     protected String correo;
     protected String telefono;
 
-    public Usuario(String nombre, String id, String correo, String telefono){
+    public Usuario(String nombre, String cedula, String correo, String telefono){
+        if (cedula == null || cedula.isBlank()) throw new IllegalArgumentException("La cédula no puede estar vacía");
+        if (nombre == null || nombre.isBlank()) throw new IllegalArgumentException("El nombre no puede estar vacío");
+        if (correo == null || correo.isBlank()) throw new IllegalArgumentException("El correo no puede estar vacío");
+        if (telefono == null || telefono.isBlank()) throw new IllegalArgumentException("El teléfono no puede estar vacío");
+
         this.nombre = nombre;
-        this.id = id;
+        this.cedula = cedula;
         this.correo = correo;
         this.telefono = telefono;
     }
@@ -24,12 +31,12 @@ public abstract  class Usuario {
         this.nombre = nombre;
     }
 
-    public String getId() {
-        return id;
+    public String getCedula() {
+        return cedula;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
     public String getCorreo() {
@@ -46,6 +53,19 @@ public abstract  class Usuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+    // Igualdad basada en la cédula
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; // misma referencia
+        if (o == null || getClass() != o.getClass()) return false; // clases distintas
+        Usuario usuario = (Usuario) o;
+        return cedula.equals(usuario.cedula); // igualdad lógica por cédula
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cedula);
     }
 
     public abstract String getTipoUsuario();
