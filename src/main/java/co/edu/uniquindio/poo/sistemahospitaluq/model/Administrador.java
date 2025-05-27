@@ -1,5 +1,7 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
+import co.edu.uniquindio.poo.sistemahospitaluq.utils.Notificador;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class Administrador extends Usuario{
             throw new IllegalArgumentException("Paciente no encontrado");
         }
         hospital.getPacientes().remove(paciente);
+        Notificador.enviarNotificacion(getNombre(), "Eliminaste al paciente con cédula: " + cedula);
     }
 
     public void eliminarMedico(Hospital hospital, String cedula) {
@@ -38,6 +41,7 @@ public class Administrador extends Usuario{
             throw new IllegalArgumentException("Médico no encontrado");
         }
         hospital.getMedicos().remove(medico);
+        Notificador.enviarNotificacion(getNombre(), "Eliminaste al médico con cédula: " + cedula);
     }
     public void modificarPaciente(Hospital hospital, String cedula, String nuevoNombre, String nuevoCorreo, String nuevoTelefono) {
         if (hospital == null || cedula == null || cedula.isBlank()) {
@@ -70,6 +74,7 @@ public class Administrador extends Usuario{
             throw new IllegalArgumentException("El hospital o la sala no pueden ser null");
         }
         hospital.registrarSala(sala);
+        Notificador.enviarNotificacion(getNombre(), "Agregaste una nueva sala: " + sala.getId());
     }
 
     public void eliminarSala(Hospital hospital, String idSala) {
@@ -81,6 +86,7 @@ public class Administrador extends Usuario{
             throw new IllegalArgumentException("Sala no encontrada");
         }
         hospital.getSalas().remove(sala);
+        Notificador.enviarNotificacion(getNombre(), "Eliminaste la sala con ID: " + idSala);
     }
 
     public void actualizarSala(Sala sala, int nuevaCapacidad, boolean disponible) {
@@ -89,6 +95,8 @@ public class Administrador extends Usuario{
         }
         sala.setCapacidad(nuevaCapacidad);
         sala.setDisponible(disponible);
+        Notificador.enviarNotificacion(getNombre(), "Actualizaste la sala " + sala.getId() +
+                " con capacidad: " + nuevaCapacidad + " y disponibilidad: " + (disponible ? "Sí" : "No"));
     }
 
     // ----------------------------
@@ -114,6 +122,8 @@ public class Administrador extends Usuario{
             throw new IllegalArgumentException("Datos inválidos para asignar paciente");
         }
         medico.asignarPaciente(cedulaPaciente);
+        Notificador.enviarNotificacion(getNombre(), "Asignaste al paciente con cédula " +
+                cedulaPaciente + " al médico " + medico.getNombre());
     }
 
     public int contarCitasPorMedico(Hospital hospital, String cedulaMedico) {

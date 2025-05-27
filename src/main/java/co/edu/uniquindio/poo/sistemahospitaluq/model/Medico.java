@@ -1,5 +1,7 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
+import co.edu.uniquindio.poo.sistemahospitaluq.utils.Notificador;
+
 import java.util.ArrayList;
 
 public class Medico extends Usuario implements IGestionHistorial {
@@ -27,9 +29,10 @@ public class Medico extends Usuario implements IGestionHistorial {
         horarios.add(horario);
     }
 
-    public void asignarPaciente(String pacienteId) {
-        if (pacienteId == null || pacienteId.isBlank()) throw new IllegalArgumentException("ID de paciente inválido");
-        pacientesAsignados.add(pacienteId);
+    public void asignarPaciente(String pacienteCedula) {
+        if (pacienteCedula == null || pacienteCedula.isBlank()) throw new IllegalArgumentException("Cedula de paciente inválido");
+        pacientesAsignados.add(pacienteCedula);
+        Notificador.enviarNotificacion(getNombre(), "Se le ha asignado un nuevo paciente con cédula: " + pacienteCedula);
     }
 
     public Especialidad getEspecialidad() {
@@ -68,5 +71,6 @@ public class Medico extends Usuario implements IGestionHistorial {
     public void agregarEntradaHistorial(HistorialMedico entrada) {
         if (entrada == null) throw new IllegalArgumentException("El historial no puede ser null");
         registros.add(entrada);
+        Notificador.enviarNotificacion(getNombre(), "Registraste una nueva entrada médica.");
     }
 }

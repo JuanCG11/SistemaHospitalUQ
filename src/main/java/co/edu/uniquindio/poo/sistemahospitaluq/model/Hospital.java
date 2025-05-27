@@ -1,5 +1,7 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
+import co.edu.uniquindio.poo.sistemahospitaluq.utils.Notificador;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -28,6 +30,7 @@ public class Hospital {
             throw new IllegalArgumentException("Ya existe un paciente con esa cédula");
         }
         pacientes.add(paciente);
+        Notificador.enviarNotificacion(paciente.getNombre(), "Bienvenido al hospital " + nombre + ". Tu registro fue exitoso.");
     }
 
 
