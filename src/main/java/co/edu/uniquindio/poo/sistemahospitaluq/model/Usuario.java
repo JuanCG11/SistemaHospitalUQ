@@ -10,8 +10,8 @@ public abstract  class Usuario {
     protected String telefono;
 
     public Usuario(String nombre, String cedula, String correo, String telefono){
-        if (cedula == null || cedula.isBlank()) throw new IllegalArgumentException("La cédula no puede estar vacía");
         if (nombre == null || nombre.isBlank()) throw new IllegalArgumentException("El nombre no puede estar vacío");
+        if (cedula == null || cedula.isBlank()) throw new IllegalArgumentException("La cédula no puede estar vacía");
         if (correo == null || correo.isBlank()) throw new IllegalArgumentException("El correo no puede estar vacío");
         if (telefono == null || telefono.isBlank()) throw new IllegalArgumentException("El teléfono no puede estar vacío");
 
@@ -52,6 +52,15 @@ public abstract  class Usuario {
     }
 
     public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    public void actualizarDatos(String nombre, String correo, String telefono) {
+        if (nombre == null || nombre.isBlank()) throw new IllegalArgumentException("Nombre inválido");
+        if (correo == null || correo.isBlank()) throw new IllegalArgumentException("Correo inválido");
+        if (telefono == null || telefono.isBlank()) throw new IllegalArgumentException("Teléfono inválido");
+
+        this.nombre = nombre;
+        this.correo = correo;
         this.telefono = telefono;
     }
     // Igualdad basada en la cédula

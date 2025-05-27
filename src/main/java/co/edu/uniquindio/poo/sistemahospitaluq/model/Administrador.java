@@ -39,6 +39,27 @@ public class Administrador extends Usuario{
         }
         hospital.getMedicos().remove(medico);
     }
+    public void modificarPaciente(Hospital hospital, String cedula, String nuevoNombre, String nuevoCorreo, String nuevoTelefono) {
+        if (hospital == null || cedula == null || cedula.isBlank()) {
+            throw new IllegalArgumentException("Datos inválidos para modificar paciente");
+        }
+        Paciente paciente = hospital.buscarPacientePorCedula(cedula);
+        if (paciente == null) {
+            throw new IllegalArgumentException("Paciente no encontrado");
+        }
+        paciente.actualizarDatos(nuevoNombre,nuevoCorreo, nuevoTelefono);
+    }
+    public void modificarMedico(Hospital hospital, String cedula, String nuevoNombre, String nuevoCorreo, String nuevoTelefono) {
+        if (hospital == null || cedula == null || cedula.isBlank()) {
+            throw new IllegalArgumentException("Datos inválidos para modificar médico");
+        }
+        Medico medico = hospital.buscarMedicoPorCedula(cedula);
+        if (medico == null) {
+            throw new IllegalArgumentException("Médico no encontrado");
+        }
+        medico.actualizarDatos(nuevoNombre, nuevoCorreo, nuevoTelefono);
+    }
+
 
     // ----------------------------
     // GESTIÓN DE SALAS
