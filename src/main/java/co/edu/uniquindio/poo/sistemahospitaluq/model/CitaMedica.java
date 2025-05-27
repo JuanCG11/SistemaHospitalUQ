@@ -14,22 +14,25 @@ public class CitaMedica {
         if (id == null || id.isBlank()) throw new IllegalArgumentException("ID de cita inválido");
         if (cedulaPaciente == null || cedulaPaciente.isBlank()) throw new IllegalArgumentException("Cédula de paciente inválida");
         if (cedulaMedico == null || cedulaMedico.isBlank()) throw new IllegalArgumentException("Cédula de médico inválida");
-        if (fechaHora == null) throw new IllegalArgumentException("La fecha no puede ser null");
+        if (fechaHora == null) throw new IllegalArgumentException("Fecha y hora inválida");
+        if (estado == null) throw new IllegalArgumentException("Estado de cita inválido");
 
         this.id = id;
         this.cedulaPaciente = cedulaPaciente;
         this.cedulaMedico = cedulaMedico;
         this.fechaHora = fechaHora;
-        this.estado = EstadoCita.AGENDADA;
+        this.estado = estado;
     }
 
-    public void cancelar() {
-        this.estado = EstadoCita.CANCELADA;
+
+    //Constructor que asume estado AGENDADA por defecto.
+
+    public CitaMedica(String id, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora) {
+        this(id, cedulaPaciente, cedulaMedico, fechaHora, EstadoCita.AGENDADA);
     }
 
-    public void completar() {
-        this.estado = EstadoCita.COMPLETADA;
-    }
+    // Getters y Setters
+
 
     public String getId() {
         return id;
@@ -70,16 +73,37 @@ public class CitaMedica {
     public void setEstado(EstadoCita estado) {
         this.estado = estado;
     }
+
+    // Métodos de control
+    public void cancelar() {
+        this.estado = EstadoCita.CANCELADA;
+    }
+
+    public void completar() {
+        this.estado = EstadoCita.COMPLETADA;
+    }
+
+    // equals y hashCode basados en ID
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CitaMedica cita = (CitaMedica) o;
+        if (!(o instanceof CitaMedica cita)) return false;
         return id.equals(cita.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Cita{" +
+                "id='" + id + '\'' +
+                ", paciente='" + cedulaPaciente + '\'' +
+                ", medico='" + cedulaMedico + '\'' +
+                ", fecha=" + fechaHora +
+                ", estado=" + estado +
+                '}';
     }
 }
