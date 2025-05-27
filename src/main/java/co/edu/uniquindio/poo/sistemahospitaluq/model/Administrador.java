@@ -11,15 +11,27 @@ public class Administrador extends Usuario{
         return "Administrador";
     }
 
-    public void registrarSala(Hospital hospital, Sala sala) {
-
-        System.out.println("Sala registrada: " + sala.getNombre());
+    public void agregarSala(Hospital hospital, Sala sala) {
+        if (hospital == null) throw new IllegalArgumentException("El hospital no puede ser null");
+        if (sala == null) throw new IllegalArgumentException("La sala no puede ser null");
+        hospital.registrarSala(sala);
     }
 
-    public void mostrarResumen(Hospital hospital) {
-        System.out.println("Resumen del hospital: ");
-        System.out.println("Pacientes: " + hospital.getPacientes().size());
-        System.out.println("Médicos: " + hospital.getMedicos().size());
-        System.out.println("Citas: " + hospital.getCitas().size());
+    public void eliminarSala(Hospital hospital, String idSala) {
+        Sala sala = hospital.buscarSalaPorId(idSala);
+        if (sala != null) {
+            hospital.getSalas().remove(sala);
+        } else {
+            throw new IllegalArgumentException("No se encontró una sala con ese ID");
+        }
+    }
+
+    public String generarResumen(Hospital hospital) {
+        return "Resumen del Hospital '" + hospital.getNombre() + "':\n" +
+                "Pacientes registrados: " + hospital.getPacientes().size() + "\n" +
+                "Médicos registrados: " + hospital.getMedicos().size() + "\n" +
+                "Administradores: " + hospital.getAdministradores().size() + "\n" +
+                "Citas registradas: " + hospital.getCitas().size() + "\n" +
+                "Salas activas: " + hospital.getSalas().size();
     }
 }
