@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.geometry.Insets?>
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.poo.sistemahospitaluq.viewController.PacienteViewController">
+    <padding>
+        <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+    </padding>
+
+    <Label text="Gestión de Pacientes" style="-fx-font-size: 18px;"/>
+
+    <HBox spacing="10">
+        <VBox spacing="5">
+            <Label text="Cedula:"/>
+            <TextField fx:id="txtCedula"/>
+
+            <Label text="Nombre:"/>
+            <TextField fx:id="txtNombre"/>
+
+            <Label text="Correo:"/>
+            <TextField fx:id="txtCorreo"/>
+
+            <Label text="Teléfono:"/>
+            <TextField fx:id="txtTelefono"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Button text="Agregar" onAction="#onAgregarPaciente"/>
+            <Button text="Actualizar" onAction="#onActualizarPaciente"/>
+            <Button text="Eliminar" onAction="#onEliminarPaciente"/>
+            <Button text="Limpiar" onAction="#onLimpiar"/>
+        </VBox>
+    </HBox>
+
+    <TableView fx:id="tblPacientes" prefHeight="200">
+        <columns>
+            <TableColumn fx:id="colCedula" text="Cedula"/>
+            <TableColumn fx:id="colNombre" text="Nombre"/>
+            <TableColumn fx:id="colCorreo" text="Correo"/>
+            <TableColumn fx:id="colTelefono" text="Teléfono"/>
+        </columns>
+    </TableView>
+</VBox>

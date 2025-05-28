@@ -4,32 +4,25 @@ import java.util.Objects;
 
 public abstract  class Usuario {
 
-    protected String nombre;
     protected String cedula;
+    protected String nombre;
     protected String correo;
     protected String telefono;
 
-    public Usuario(String nombre, String cedula, String correo, String telefono){
-        if (nombre == null || nombre.isBlank()) throw new IllegalArgumentException("El nombre no puede estar vacío");
+    public Usuario(String cedula, String nombre, String correo, String telefono){
         if (cedula == null || cedula.isBlank()) throw new IllegalArgumentException("La cédula no puede estar vacía");
+        if (nombre == null || nombre.isBlank()) throw new IllegalArgumentException("El nombre no puede estar vacío");
         if (correo == null || correo.isBlank()) throw new IllegalArgumentException("El correo no puede estar vacío");
         if (telefono == null || telefono.isBlank()) throw new IllegalArgumentException("El teléfono no puede estar vacío");
 
-        this.nombre = nombre;
         this.cedula = cedula;
+        this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
     }
 
     // getters y setters
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public String getCedula() {
         return cedula;
@@ -37,6 +30,13 @@ public abstract  class Usuario {
 
     public void setCedula(String cedula) {
         this.cedula = cedula;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getCorreo() {
