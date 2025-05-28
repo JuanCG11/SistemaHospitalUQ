@@ -1,0 +1,27 @@
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.poo.sistemahospitaluq.viewController.InicioViewController"
+
+      prefWidth="600" prefHeight="400" style="-fx-background-color: #f0f4f8;">
+
+    <Label text="Sistema de Gestión Hospitalaria"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <!-- Imagen opcional -->
+    <!-- <ImageView fx:id="imgLogo" fitHeight="100" fitWidth="100"
+                preserveRatio="true" image="@logo.png"/> -->
+
+    <Label text="Selecciona un tipo de usuario:" style="-fx-font-size: 16px;" />
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Paciente" fx:id="btnPaciente" onAction="#onPaciente"/>
+        <Button text="Médico" fx:id="btnMedico" onAction="#onMedico"/>
+        <Button text="Administrador" fx:id="btnAdministrador" onAction="#onAdministrador"/>
+    </HBox>
+
+</VBox>

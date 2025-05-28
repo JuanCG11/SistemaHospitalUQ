@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.poo.sistemahospitaluq.viewController.MedicoViewController"
+      prefWidth="600" prefHeight="400" style="-fx-background-color: #f9fcff;">
+
+    <Label text="Panel del Médico" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <Label text="Cédula del paciente:"/>
+        <TextField fx:id="txtCedulaPaciente"/>
+        <Button text="Ver historial" onAction="#onVerHistorial"/>
+    </HBox>
+
+    <TextArea fx:id="areaHistorial" prefRowCount="8" editable="false"/>
+
+    <Label text="Registrar diagnóstico o tratamiento:"/>
+    <TextArea fx:id="txtDiagnostico" prefRowCount="4"/>
+    <Button text="Agregar entrada" onAction="#onAgregarEntrada"/>
+
+</VBox>
