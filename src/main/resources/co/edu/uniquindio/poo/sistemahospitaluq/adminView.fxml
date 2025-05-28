@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.poo.sistemahospitaluq.viewController.AdminViewController"
+      prefWidth="600" prefHeight="400" style="-fx-background-color: #fffefb;">
+
+    <Label text="Panel del Administrador" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <Button text="Gestionar pacientes" onAction="#onGestionarPacientes"/>
+    <Button text="Gestionar médicos" onAction="#onGestionarMedicos"/>
+    <Button text="Gestionar salas" onAction="#onGestionarSalas"/>
+    <Button text="Ver reportes" onAction="#onVerReportes"/>
+
+</VBox>

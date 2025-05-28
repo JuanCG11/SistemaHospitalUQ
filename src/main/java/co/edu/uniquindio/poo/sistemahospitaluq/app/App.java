@@ -1,7 +1,9 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.app;
 
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Hospital;
+import co.edu.uniquindio.poo.sistemahospitaluq.viewController.AdminViewController;
 import co.edu.uniquindio.poo.sistemahospitaluq.viewController.InicioViewController;
+import co.edu.uniquindio.poo.sistemahospitaluq.viewController.MedicoViewController;
 import co.edu.uniquindio.poo.sistemahospitaluq.viewController.PacienteViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +41,39 @@ public class App extends Application {
         } catch (Exception e) {
             System.err.println("Error al abrir pacienteView: " + e.getMessage());
 
+        }
+    }
+    public void openMedicoView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/sistemahospitaluq/medicoView.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            MedicoViewController controller = loader.getController();
+            controller.setHospital(hospital);
+
+            Stage stage = new Stage();
+            stage.setTitle("Panel del Médico");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Error al abrir medicoView: " + e.getMessage());
+        }
+    }
+
+    public void openAdminView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/sistemahospitaluq/adminView.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            AdminViewController controller = loader.getController();
+            controller.setHospital(hospital);
+
+            Stage stage = new Stage();
+            stage.setTitle("Panel del Administrador");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Error al abrir adminView: " + e.getMessage());
         }
     }
 
