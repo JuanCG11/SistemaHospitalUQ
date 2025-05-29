@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.viewController;
 
+import co.edu.uniquindio.poo.sistemahospitaluq.app.App;
 import co.edu.uniquindio.poo.sistemahospitaluq.controller.UsuarioController;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Hospital;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Paciente;
@@ -26,7 +27,12 @@ public class PacienteViewController {
 
     private final ObservableList<Paciente> listaPacientes = FXCollections.observableArrayList();
     private UsuarioController usuarioController;
+    private App app;
     private Paciente pacienteSeleccionado;
+
+    public void setApp(App app) {
+        this.app = app;
+    }
 
     public void setHospital(Hospital hospital) {
         this.usuarioController = new UsuarioController(hospital);
@@ -116,4 +122,20 @@ public class PacienteViewController {
         tblPacientes.getSelectionModel().clearSelection();
         pacienteSeleccionado = null;
     }
+    @FXML
+    private void onSolicitarCita() {
+        app.openCitaView(); // por ahora, abre la misma vista que el admin
+    }
+
+    @FXML
+    private void onCancelarCita() {
+        System.out.println("Cancelar cita (puede abrir citaView y seleccionar la suya)");
+    }
+
+    @FXML
+    private void onVerHistorial() {
+        System.out.println("Ver historial médico del paciente");
+    }
+
+
 }

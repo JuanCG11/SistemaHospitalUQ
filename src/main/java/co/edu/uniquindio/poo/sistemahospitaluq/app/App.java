@@ -1,10 +1,7 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.app;
 
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Hospital;
-import co.edu.uniquindio.poo.sistemahospitaluq.viewController.AdminViewController;
-import co.edu.uniquindio.poo.sistemahospitaluq.viewController.InicioViewController;
-import co.edu.uniquindio.poo.sistemahospitaluq.viewController.MedicoViewController;
-import co.edu.uniquindio.poo.sistemahospitaluq.viewController.PacienteViewController;
+import co.edu.uniquindio.poo.sistemahospitaluq.viewController.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,6 +29,7 @@ public class App extends Application {
             Scene scene = new Scene(loader.load());
 
             PacienteViewController controller = loader.getController();
+            controller.setApp(this);
             controller.setHospital(hospital);
 
             Stage stage = new Stage(); // O reutilizás primaryStage si lo guardás
@@ -67,6 +65,7 @@ public class App extends Application {
 
             AdminViewController controller = loader.getController();
             controller.setHospital(hospital);
+            controller.setApp(this);
 
             Stage stage = new Stage();
             stage.setTitle("Panel del Administrador");
@@ -74,6 +73,22 @@ public class App extends Application {
             stage.show();
         } catch (Exception e) {
             System.err.println("Error al abrir adminView: " + e.getMessage());
+        }
+    }
+    public void openCitaView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/sistemahospitaluq/citaView.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            CitaViewController controller = loader.getController();
+            controller.setHospital(hospital);
+
+            Stage stage = new Stage();
+            stage.setTitle("Gestión de Citas");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Error al abrir citaView: " + e.getMessage());
         }
     }
 

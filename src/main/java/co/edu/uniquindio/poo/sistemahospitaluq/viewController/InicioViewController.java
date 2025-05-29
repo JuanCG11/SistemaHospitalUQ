@@ -14,7 +14,7 @@ public class InicioViewController {
 
     @FXML
     private void onPaciente() {
-        app.openPacienteView(); // Método que cambia a la vista de paciente
+        app.openPacienteView();
     }
 
     @FXML

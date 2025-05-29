@@ -13,5 +13,6 @@
     <Button text="Gestionar médicos" onAction="#onGestionarMedicos"/>
     <Button text="Gestionar salas" onAction="#onGestionarSalas"/>
     <Button text="Ver reportes" onAction="#onVerReportes"/>
+    <Button text="Gestionar citas" onAction="#onGestionarCitas"/>
 
 </VBox>

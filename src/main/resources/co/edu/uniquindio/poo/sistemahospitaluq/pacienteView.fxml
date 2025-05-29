@@ -45,4 +45,13 @@
             <TableColumn fx:id="colTelefono" text="Teléfono"/>
         </columns>
     </TableView>
+    <VBox spacing="20" >
+
+        <Label text="Bienvenido, Paciente" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        <Button text="Solicitar cita médica" onAction="#onSolicitarCita"/>
+        <Button text="Cancelar cita" onAction="#onCancelarCita"/>
+        <Button text="Ver historial médico" onAction="#onVerHistorial"/>
+
+    </VBox>
+
 </VBox>

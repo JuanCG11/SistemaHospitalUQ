@@ -1,11 +1,16 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.viewController;
 
+import co.edu.uniquindio.poo.sistemahospitaluq.app.App;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Hospital;
 import javafx.fxml.FXML;
 
 public class AdminViewController {
-
+    private App app;
     private Hospital hospital;
+
+    public void setApp(App app) {
+        this.app = app;
+    }
 
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
@@ -30,5 +35,9 @@ public class AdminViewController {
     @FXML
     private void onVerReportes() {
         System.out.println("Mostrando reportes...");
+    }
+    @FXML
+    private void onGestionarCitas() {
+        app.openCitaView();
     }
 }
