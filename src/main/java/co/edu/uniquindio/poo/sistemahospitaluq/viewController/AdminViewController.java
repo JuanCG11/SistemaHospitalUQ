@@ -4,6 +4,7 @@ import co.edu.uniquindio.poo.sistemahospitaluq.app.App;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Hospital;
 import javafx.fxml.FXML;
 
+
 public class AdminViewController {
     private App app;
     private Hospital hospital;
@@ -18,8 +19,8 @@ public class AdminViewController {
 
     @FXML
     private void onGestionarPacientes() {
-        // app.openPacienteView(); // si querés navegar directamente
-        System.out.println("Abriendo gestión de pacientes...");
+        app.openPacienteView();
+
     }
 
     @FXML
@@ -34,11 +35,15 @@ public class AdminViewController {
 
     @FXML
     private void onVerReportes() {
-        System.out.println("Mostrando reportes...");
+        app.openReportesView();
     }
+
     @FXML
     private void onGestionarCitas() {
         app.openCitaView();
     }
 
+    public Hospital getHospital() {
+        return hospital;
+    }
 }

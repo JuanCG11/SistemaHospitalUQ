@@ -107,6 +107,22 @@ public class App extends Application {
             System.err.println("Error al abrir salaView: " + e.getMessage());
         }
     }
+    public void openReportesView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/sistemahospitaluq/reporteView.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            ReporteViewController controller = loader.getController();
+            controller.setHospital(hospital);
+
+            Stage stage = new Stage();
+            stage.setTitle("Reportes del Hospital");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Error al abrir reportesView: " + e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);

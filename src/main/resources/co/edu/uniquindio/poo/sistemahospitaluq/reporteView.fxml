@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.poo.sistemahospitaluq.viewController.ReporteViewController"
+      prefWidth="600" prefHeight="400" style="-fx-background-color: #ffffff;">
+
+    <Label text="Reportes del Hospital" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <TextArea fx:id="txtReporte" prefHeight="250" editable="false"/>
+
+    <Button text="Actualizar Reporte" onAction="#onActualizarReporte"/>
+</VBox>
