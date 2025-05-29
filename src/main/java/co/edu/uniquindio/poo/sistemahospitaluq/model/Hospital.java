@@ -63,6 +63,14 @@ public class Hospital {
                 .findFirst()
                 .orElse(null);
     }
+    public CitaMedica buscarCitaPorId(String id) {
+        for (CitaMedica c : citas) {
+            if (c.getId().equals(id)) {
+                return c;
+            }
+        }
+        return null;
+    }
 
     // Gestión de salas
     public void registrarSala(Sala sala) {

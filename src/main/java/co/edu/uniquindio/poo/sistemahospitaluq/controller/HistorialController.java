@@ -10,13 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistorialController {
+
     private final Hospital hospital;
 
     public HistorialController(Hospital hospital) {
         this.hospital = hospital;
     }
 
-    //Obtiene el historial médico de un paciente.
+    public void crearHistorialSiNoExiste(String cedulaPaciente) {
+        Paciente paciente = hospital.buscarPacientePorCedula(cedulaPaciente);
+        if (paciente != null && paciente.getHistorial().isEmpty()) {
+            // Ya está inicializado en el paciente, no se necesita más
+        }
+    }
+
+    public void agregarEntrada(String cedulaPaciente, HistorialMedico entrada) {
+        Paciente paciente = hospital.buscarPacientePorCedula(cedulaPaciente);
+        if (paciente != null) {
+            paciente.getHistorial().add(entrada);
+        }
+    }
 
     public List<HistorialMedico> obtenerHistorialDePaciente(String cedulaPaciente) {
         Paciente paciente = hospital.buscarPacientePorCedula(cedulaPaciente);
@@ -25,8 +38,6 @@ public class HistorialController {
         }
         return new ArrayList<>();
     }
-
-    //Obtiene el historial médico registrado por un médico.
 
     public List<HistorialMedico> obtenerHistorialDeMedico(String cedulaMedico) {
         Medico medico = hospital.buscarMedicoPorCedula(cedulaMedico);

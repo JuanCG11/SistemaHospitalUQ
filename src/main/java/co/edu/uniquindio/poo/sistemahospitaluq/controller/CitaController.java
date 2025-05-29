@@ -21,20 +21,31 @@ public class CitaController {
     public boolean agendarCita(String idCita, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora) {
         Paciente paciente = hospital.buscarPacientePorCedula(cedulaPaciente);
         Medico medico = hospital.buscarMedicoPorCedula(cedulaMedico);
-        if (!medico.puedeAtender(fechaHora)) {
-            Notificador.enviarNotificacion(medico.getNombre(), "La cita está fuera de su horario");
-            return false; // o lanza excepción si querés
-        }
-        if (paciente == null) {
+
+        // Validaciones iniciales
+        if (paciente == null || medico == null) {
             return false;
         }
 
+        // Validar si el médico puede atender
+        if (!medico.puedeAtender(fechaHora)) {
+            Notificador.enviarNotificacion(medico.getNombre(), "La cita está fuera de su horario.");
+            return false;
+        }
+
+        // Validar que no exista ya una cita con el mismo ID
+        if (hospital.buscarCitaPorId(idCita) != null) {
+            return false;
+        }
+
+        // Crear y registrar la cita
         CitaMedica cita = new CitaMedica(idCita, cedulaPaciente, cedulaMedico, fechaHora);
         hospital.registrarCita(cita);
         paciente.agendarCita(cita);
 
-        Notificador.enviarNotificacion(paciente.getNombre(), "Tu cita fue agendada para " + fechaHora);
-        Notificador.enviarNotificacion(medico.getNombre(), "Nueva cita con " + paciente.getNombre() + " el " + fechaHora);
+        // Notificaciones
+        Notificador.enviarNotificacion(paciente.getNombre(), "Tu cita fue agendada para el " + fechaHora.toString());
+        Notificador.enviarNotificacion(medico.getNombre(), "Tienes una nueva cita con " + paciente.getNombre() + " el " + fechaHora.toString());
 
         return true;
     }

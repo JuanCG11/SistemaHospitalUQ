@@ -73,18 +73,18 @@ public class Medico extends Usuario implements IGestionHistorial {
         this.registros = registros;
     }
     public boolean puedeAtender(LocalDateTime fechaCita) {
-        String diaSemana = fechaCita.getDayOfWeek().toString().toLowerCase(); // ej: monday
+        String diaSemana = traducirDia(fechaCita.getDayOfWeek().toString().toLowerCase()); // ej: "lunes"
         int hora = fechaCita.getHour();
         int minuto = fechaCita.getMinute();
         int minutosTotales = hora * 60 + minuto;
 
         for (String horario : horarios) {
-            // Ejemplo de formato: "lunes 08:00-12:00"
+            // Ejemplo: "lunes 08:00-12:00"
             String[] partes = horario.toLowerCase().split(" ");
             if (partes.length != 2) continue;
 
-            String diaHorario = partes[0]; // lunes
-            String rango = partes[1];      // 08:00-12:00
+            String diaHorario = partes[0];
+            String rango = partes[1];
 
             if (!diaHorario.equals(diaSemana)) continue;
 
@@ -95,13 +95,25 @@ public class Medico extends Usuario implements IGestionHistorial {
             int fin = convertirHoraAMinutos(horas[1]);
 
             if (minutosTotales >= inicio && minutosTotales <= fin) {
-                return true; // Está dentro del horario
+                return true;
             }
         }
 
-        return false; // No coincide con ningún horario
+        return false;
     }
 
+    private String traducirDia(String diaIngles) {
+        return switch (diaIngles) {
+            case "monday" -> "lunes";
+            case "tuesday" -> "martes";
+            case "wednesday" -> "miércoles";
+            case "thursday" -> "jueves";
+            case "friday" -> "viernes";
+            case "saturday" -> "sábado";
+            case "sunday" -> "domingo";
+            default -> diaIngles;
+        };
+    }
     private int convertirHoraAMinutos(String horaStr) {
         String[] partes = horaStr.split(":");
         int h = Integer.parseInt(partes[0]);
