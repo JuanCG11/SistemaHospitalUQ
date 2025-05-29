@@ -1,10 +1,7 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.viewController;
 
 import co.edu.uniquindio.poo.sistemahospitaluq.controller.CitaController;
-import co.edu.uniquindio.poo.sistemahospitaluq.model.CitaMedica;
-import co.edu.uniquindio.poo.sistemahospitaluq.model.Hospital;
-import co.edu.uniquindio.poo.sistemahospitaluq.model.Medico;
-import co.edu.uniquindio.poo.sistemahospitaluq.model.Paciente;
+import co.edu.uniquindio.poo.sistemahospitaluq.model.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +19,7 @@ public class CitaViewController {
     @FXML private ComboBox<Medico> cmbMedicos;
     @FXML private DatePicker dpFecha;
     @FXML private TextField txtHora;
+    @FXML private TableColumn<CitaMedica, String> colSala;
 
     @FXML private TableView<CitaMedica> tblCitas;
     @FXML private TableColumn<CitaMedica, String> colId;
@@ -29,6 +27,7 @@ public class CitaViewController {
     @FXML private TableColumn<CitaMedica, String> colMedico;
     @FXML private TableColumn<CitaMedica, String> colFechaHora;
     @FXML private TableColumn<CitaMedica, String> colEstado;
+    @FXML private ComboBox<String> cmbSalas;
 
     private Hospital hospital;
     private CitaController citaController;
@@ -43,12 +42,16 @@ public class CitaViewController {
     private void cargarDatos() {
         cmbPacientes.setItems(FXCollections.observableArrayList(hospital.getPacientes()));
         cmbMedicos.setItems(FXCollections.observableArrayList(hospital.getMedicos()));
+        cmbSalas.setItems(FXCollections.observableArrayList(
+                hospital.obtenerListaSalas().stream().map(Sala::getId).toList()
+        ));
 
         colId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getId()));
         colPaciente.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getCedulaPaciente()));
         colMedico.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getCedulaMedico()));
         colFechaHora.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getFechaHora().toString()));
         colEstado.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getEstado().toString()));
+        colSala.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getIdSala()));
 
         tblCitas.setItems(listaCitas);
         listaCitas.setAll(hospital.getCitas());
@@ -61,6 +64,7 @@ public class CitaViewController {
         LocalDate fecha = dpFecha.getValue();
         String hora = txtHora.getText();
 
+
         if (paciente == null || medico == null || fecha == null || hora.isBlank()) {
             mostrarAlerta("Completa todos los campos.");
             return;
@@ -71,16 +75,25 @@ public class CitaViewController {
             LocalDateTime fechaHora = LocalDateTime.of(fecha, horaParsed);
 
             String id = UUID.randomUUID().toString();
-            CitaMedica cita = new CitaMedica(id, paciente.getCedula(), medico.getCedula(), fechaHora);
+            String idSala = cmbSalas.getValue();
+
+            if (idSala == null || idSala.isBlank()) {
+                mostrarAlerta("Selecciona una sala para la cita.");
+                return;
+            }
+
+            CitaMedica cita = new CitaMedica(id, paciente.getCedula(), medico.getCedula(), fechaHora, idSala);
 
             if (citaController.agendarCita(
-                    cita.getId(),
-                    cita.getCedulaPaciente(),
-                    cita.getCedulaMedico(),
-                    cita.getFechaHora()
+                    id,
+                    paciente.getCedula(),
+                    medico.getCedula(),
+                    fechaHora,
+                    idSala
             )) {
                 listaCitas.add(cita);
                 limpiar();
+
             } else {
                 mostrarAlerta("No se pudo agendar la cita.");
             }
@@ -105,6 +118,7 @@ public class CitaViewController {
         txtHora.clear();
         cmbPacientes.setValue(null);
         cmbMedicos.setValue(null);
+        cmbSalas.setValue(null);
     }
 
     private void mostrarAlerta(String mensaje) {

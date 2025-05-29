@@ -9,8 +9,9 @@ public class CitaMedica {
     private String cedulaMedico;
     private LocalDateTime fechaHora;
     private EstadoCita estado;
+    private String idSala;
 
-    public CitaMedica(String id, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora, EstadoCita estado) {
+    public CitaMedica(String id, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora, EstadoCita estado, String idSala) {
         if (id == null || id.isBlank()) throw new IllegalArgumentException("ID de cita inválido");
         if (cedulaPaciente == null || cedulaPaciente.isBlank()) throw new IllegalArgumentException("Cédula de paciente inválida");
         if (cedulaMedico == null || cedulaMedico.isBlank()) throw new IllegalArgumentException("Cédula de médico inválida");
@@ -22,13 +23,14 @@ public class CitaMedica {
         this.cedulaMedico = cedulaMedico;
         this.fechaHora = fechaHora;
         this.estado = estado;
+        this.idSala = idSala;
     }
 
 
     //Constructor que asume estado AGENDADA por defecto.
 
-    public CitaMedica(String id, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora) {
-        this(id, cedulaPaciente, cedulaMedico, fechaHora, EstadoCita.AGENDADA);
+    public CitaMedica(String id, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora, String idSala) {
+        this(id, cedulaPaciente, cedulaMedico, fechaHora, EstadoCita.AGENDADA, idSala);
     }
 
     // Getters y Setters
@@ -72,6 +74,14 @@ public class CitaMedica {
 
     public void setEstado(EstadoCita estado) {
         this.estado = estado;
+    }
+
+    public String getIdSala() {
+        return idSala;
+    }
+
+    public void setIdSala(String idSala) {
+        this.idSala = idSala;
     }
 
     // Métodos de control

@@ -18,7 +18,8 @@ public class CitaController {
     // AGENDAR CITA
     // ------------------------
 
-    public boolean agendarCita(String idCita, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora) {
+    public boolean agendarCita(String idCita, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora, String idSala)
+    {
         Paciente paciente = hospital.buscarPacientePorCedula(cedulaPaciente);
         Medico medico = hospital.buscarMedicoPorCedula(cedulaMedico);
 
@@ -39,7 +40,8 @@ public class CitaController {
         }
 
         // Crear y registrar la cita
-        CitaMedica cita = new CitaMedica(idCita, cedulaPaciente, cedulaMedico, fechaHora);
+        CitaMedica cita = new CitaMedica(idCita, cedulaPaciente, cedulaMedico, fechaHora, EstadoCita.AGENDADA, idSala);
+
         hospital.registrarCita(cita);
         paciente.agendarCita(cita);
 

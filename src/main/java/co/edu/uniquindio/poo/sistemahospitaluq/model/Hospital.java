@@ -99,6 +99,9 @@ public class Hospital {
         }
         return disponibles;
     }
+    public List<Sala> obtenerListaSalas() {
+        return new ArrayList<>(salas);
+    }
 
     public boolean existeHistorial(String cedulaPaciente) {
         return historiales.containsKey(cedulaPaciente);

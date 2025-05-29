@@ -22,6 +22,8 @@
 
         <Label text="Hora (HH:MM):" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
         <TextField fx:id="txtHora" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Sala:"/>
+        <ComboBox fx:id="cmbSalas" promptText="Seleccione una sala"/>
     </GridPane>
 
     <HBox spacing="10" alignment="CENTER">
@@ -36,6 +38,7 @@
             <TableColumn fx:id="colMedico" text="Médico"/>
             <TableColumn fx:id="colFechaHora" text="Fecha y Hora"/>
             <TableColumn fx:id="colEstado" text="Estado"/>
+            <TableColumn fx:id="colSala" text="Sala"/>
         </columns>
     </TableView>
 </VBox>

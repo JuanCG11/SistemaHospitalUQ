@@ -3,23 +3,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
       fx:controller="co.edu.uniquindio.poo.sistemahospitaluq.viewController.MedicoViewController"
-      prefWidth="600" prefHeight="400" style="-fx-background-color: #f9fcff;">
+      prefWidth="600" prefHeight="500" style="-fx-background-color: #f9fcff; -fx-padding: 20;">
 
     <Label text="Panel del Médico" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
-    <HBox spacing="10">
+    <HBox spacing="10" alignment="CENTER">
         <Label text="Cédula del paciente:"/>
-        <TextField fx:id="txtCedulaPaciente"/>
+        <TextField fx:id="txtCedulaPaciente" promptText="Ingrese cédula"/>
         <Button text="Ver historial" onAction="#onVerHistorial"/>
     </HBox>
 
-    <TextArea fx:id="areaHistorial" prefRowCount="8" editable="false"/>
+    <Label fx:id="lblEstado" text="" style="-fx-text-fill: #555;"/>
 
     <Label text="Registrar diagnóstico o tratamiento:"/>
-    <TextArea fx:id="txtDiagnostico" prefRowCount="4"/>
-    <Button text="Agregar entrada" onAction="#onAgregarEntrada"/>
+    <TextArea fx:id="txtDiagnostico" promptText="Descripción detallada..." prefRowCount="4"/>
+
+    <Button text="Agregar entrada" onAction="#onAgregarEntrada" maxWidth="200"/>
 
 </VBox>

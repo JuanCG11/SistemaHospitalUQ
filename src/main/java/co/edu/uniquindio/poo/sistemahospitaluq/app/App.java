@@ -32,6 +32,7 @@ public class App extends Application {
             controller.setApp(this);
             controller.setHospital(hospital);
 
+
             Stage stage = new Stage(); // O reutilizás primaryStage si lo guardás
             stage.setTitle("Gestión de Pacientes");
             stage.setScene(scene);
@@ -48,6 +49,7 @@ public class App extends Application {
 
             MedicoViewController controller = loader.getController();
             controller.setHospital(hospital);
+            controller.setApp(this);
 
             Stage stage = new Stage();
             stage.setScene(scene);
