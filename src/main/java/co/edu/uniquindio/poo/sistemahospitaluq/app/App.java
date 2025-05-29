@@ -91,6 +91,22 @@ public class App extends Application {
             System.err.println("Error al abrir citaView: " + e.getMessage());
         }
     }
+    public void openSalaView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/sistemahospitaluq/salaView.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            SalaViewController controller = loader.getController();
+            controller.setHospital(hospital);
+
+            Stage stage = new Stage();
+            stage.setTitle("Gestión de Salas");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Error al abrir salaView: " + e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);

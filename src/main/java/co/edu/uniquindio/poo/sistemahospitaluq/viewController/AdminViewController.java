@@ -29,7 +29,7 @@ public class AdminViewController {
 
     @FXML
     private void onGestionarSalas() {
-        System.out.println("Abriendo gestión de salas...");
+        app.openSalaView(); // ✅ navegación real
     }
 
     @FXML
@@ -40,4 +40,5 @@ public class AdminViewController {
     private void onGestionarCitas() {
         app.openCitaView();
     }
+
 }
