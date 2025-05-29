@@ -50,9 +50,10 @@ public class App extends Application {
             controller.setHospital(hospital);
 
             Stage stage = new Stage();
-            stage.setTitle("Panel del Médico");
             stage.setScene(scene);
+            stage.setTitle("Panel del Médico");
             stage.show();
+
         } catch (Exception e) {
             System.err.println("Error al abrir medicoView: " + e.getMessage());
         }
@@ -121,6 +122,39 @@ public class App extends Application {
             stage.show();
         } catch (Exception e) {
             System.err.println("Error al abrir reportesView: " + e.getMessage());
+        }
+    }
+    public void openHistorialPacienteView(String cedulaPaciente) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/sistemahospitaluq/historialPacienteView.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            HistorialPacienteViewController controller = loader.getController();
+            controller.setHospital(hospital);
+            controller.setCedulaPaciente(cedulaPaciente);
+
+            Stage stage = new Stage();
+            stage.setTitle("Historial Médico");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Error al abrir historialPacienteView: " + e.getMessage());
+        }
+    }
+    public void openCrudMedicoView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/sistemahospitaluq/crudMedicoView.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            CrudMedicoViewController controller = loader.getController();
+            controller.setHospital(hospital);
+
+            Stage stage = new Stage();
+            stage.setTitle("Gestión de Médicos");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Error al abrir medicoView: " + e.getMessage());
         }
     }
 

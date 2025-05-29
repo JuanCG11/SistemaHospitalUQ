@@ -5,7 +5,7 @@ import co.edu.uniquindio.poo.sistemahospitaluq.model.Hospital;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Medico;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Paciente;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,23 +14,6 @@ public class HistorialController {
 
     public HistorialController(Hospital hospital) {
         this.hospital = hospital;
-    }
-
-    //Agrega una entrada al historial médico del paciente y del médico.
-
-    public boolean agregarEntradaHistorial(String cedulaPaciente, String cedulaMedico, String descripcion) {
-        Paciente paciente = hospital.buscarPacientePorCedula(cedulaPaciente);
-        Medico medico = hospital.buscarMedicoPorCedula(cedulaMedico);
-
-        if (paciente == null || medico == null || descripcion == null || descripcion.isBlank()) {
-            return false;
-        }
-
-        HistorialMedico entrada = new HistorialMedico(LocalDate.now(), descripcion, medico.getNombre());
-        paciente.agregarEntradaHistorial(entrada);
-        medico.agregarEntradaHistorial(entrada);
-
-        return true;
     }
 
     //Obtiene el historial médico de un paciente.

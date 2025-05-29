@@ -19,6 +19,10 @@ public class Medico extends Usuario implements IGestionHistorial {
         this.pacientesAsignados = new ArrayList<>();
         this.registros = new ArrayList<>();
     }
+    @Override
+    public String toString() {
+        return nombre + " (" + cedula + ")";
+    }
 
     @Override
     public String getTipoUsuario() {
@@ -68,9 +72,10 @@ public class Medico extends Usuario implements IGestionHistorial {
     }
 
     @Override
-    public void agregarEntradaHistorial(HistorialMedico entrada) {
-        if (entrada == null) throw new IllegalArgumentException("El historial no puede ser null");
-        registros.add(entrada);
-        Notificador.enviarNotificacion(getNombre(), "Registraste una nueva entrada médica.");
+    public void agregarEntradaHistorial(HistorialMedico entrada, Hospital hospital, String cedulaPaciente) {
+        if (!hospital.existeHistorial(cedulaPaciente)) {
+            hospital.crearHistorial(cedulaPaciente);
+        }
+        hospital.agregarEntradaHistorial(cedulaPaciente, entrada);
     }
 }

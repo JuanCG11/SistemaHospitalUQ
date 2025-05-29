@@ -2,8 +2,8 @@ package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
 import co.edu.uniquindio.poo.sistemahospitaluq.utils.Notificador;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Hospital {
 
@@ -13,6 +13,8 @@ public class Hospital {
     private ArrayList<Administrador> administradores;
     private ArrayList<CitaMedica>citas;
     private ArrayList<Sala> salas;
+    private Map<String, List<HistorialMedico>> historiales = new HashMap<>();
+
 
     public Hospital(String nombre) {
         this.nombre = nombre;
@@ -56,7 +58,10 @@ public class Hospital {
     }
 
     public Medico buscarMedicoPorCedula(String cedula) {
-        return medicos.stream().filter(m -> m.getCedula().equals(cedula)).findFirst().orElse(null);
+        return medicos.stream()
+                .filter(m -> m.getCedula().equals(cedula))
+                .findFirst()
+                .orElse(null);
     }
 
     // Gestión de salas
@@ -86,6 +91,26 @@ public class Hospital {
         }
         return disponibles;
     }
+
+    public boolean existeHistorial(String cedulaPaciente) {
+        return historiales.containsKey(cedulaPaciente);
+    }
+
+    public void crearHistorial(String cedulaPaciente) {
+        historiales.putIfAbsent(cedulaPaciente, new ArrayList<>());
+    }
+
+    public boolean agregarEntradaHistorial(String cedulaPaciente, HistorialMedico entrada) {
+        if (!existeHistorial(cedulaPaciente)) return false;
+        historiales.get(cedulaPaciente).add(entrada);
+        return true;
+    }
+
+    public List<HistorialMedico> obtenerHistorialDePaciente(String cedulaPaciente) {
+        return historiales.getOrDefault(cedulaPaciente, new ArrayList<>());
+    }
+
+
 
     public String getNombre() {
         return nombre;

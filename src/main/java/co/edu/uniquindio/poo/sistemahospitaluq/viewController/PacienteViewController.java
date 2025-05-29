@@ -134,7 +134,8 @@ public class PacienteViewController {
 
     @FXML
     private void onVerHistorial() {
-        System.out.println("Ver historial médico del paciente");
+        String cedulaPaciente = txtCedula.getText();
+        app.openHistorialPacienteView(cedulaPaciente);
     }
 
 

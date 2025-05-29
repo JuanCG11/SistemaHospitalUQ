@@ -6,7 +6,7 @@ import co.edu.uniquindio.poo.sistemahospitaluq.utils.Notificador;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Paciente extends Usuario implements IGestionCitas, IGestionHistorial{
+public class Paciente extends Usuario implements IGestionCitas{
     private ArrayList<HistorialMedico> historial;
     private ArrayList<CitaMedica> citas;
 
@@ -14,6 +14,10 @@ public class Paciente extends Usuario implements IGestionCitas, IGestionHistoria
         super(cedula, nombre, correo, telefono);
         this.historial = new ArrayList<>();
         this.citas = new ArrayList<>();
+    }
+    @Override
+    public String toString() {
+        return nombre + " (" + cedula + ")";
     }
 
     @Override
@@ -61,11 +65,6 @@ public class Paciente extends Usuario implements IGestionCitas, IGestionHistoria
         Notificador.enviarNotificacion(getNombre(), "Has cancelado la cita del " + fechaFormateada);
     }
 
-    @Override
-    public void agregarEntradaHistorial(HistorialMedico entrada) {
-        if (entrada == null) throw new IllegalArgumentException("El historial no puede ser null");
-        historial.add(entrada);
-        Notificador.enviarNotificacion(getNombre(), "Se agregó una nueva entrada a tu historial médico.");
-    }
+
 
 }

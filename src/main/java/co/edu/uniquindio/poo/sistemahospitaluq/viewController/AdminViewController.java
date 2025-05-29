@@ -30,7 +30,7 @@ public class AdminViewController {
 
     @FXML
     private void onGestionarSalas() {
-        app.openSalaView(); // ✅ navegación real
+        app.openSalaView();
     }
 
     @FXML
@@ -45,5 +45,9 @@ public class AdminViewController {
 
     public Hospital getHospital() {
         return hospital;
+    }
+    @FXML
+    private void onGestionarCrudMedicos() {
+        app.openCrudMedicoView();
     }
 }
