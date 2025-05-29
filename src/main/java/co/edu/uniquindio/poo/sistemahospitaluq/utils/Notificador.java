@@ -1,13 +1,22 @@
 package co.edu.uniquindio.poo.sistemahospitaluq.utils;
 
-public class Notificador {
-    private Notificador() {
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+    public class Notificador {
+
         // Constructor privado para evitar instanciación
-    }
+        private Notificador() {}
 
-    //Simula el envío de una notificación a un usuario.
+        public static void enviarNotificacion(String destinatario, String mensaje) {
 
-    public static void enviarNotificacion(String nombreUsuario, String mensaje) {
-        System.out.println("🔔 Notificación para " + nombreUsuario + ": " + mensaje);
+            Platform.runLater(() -> {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Notificación");
+                alert.setHeaderText("Para: " + destinatario);
+                alert.setContentText(mensaje);
+                alert.showAndWait();
+            });
+        }
     }
-}
