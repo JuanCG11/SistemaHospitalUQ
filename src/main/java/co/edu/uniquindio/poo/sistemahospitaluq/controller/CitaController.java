@@ -21,8 +21,11 @@ public class CitaController {
     public boolean agendarCita(String idCita, String cedulaPaciente, String cedulaMedico, LocalDateTime fechaHora) {
         Paciente paciente = hospital.buscarPacientePorCedula(cedulaPaciente);
         Medico medico = hospital.buscarMedicoPorCedula(cedulaMedico);
-
-        if (paciente == null || medico == null || fechaHora == null) {
+        if (!medico.puedeAtender(fechaHora)) {
+            Notificador.enviarNotificacion(medico.getNombre(), "La cita está fuera de su horario");
+            return false; // o lanza excepción si querés
+        }
+        if (paciente == null) {
             return false;
         }
 

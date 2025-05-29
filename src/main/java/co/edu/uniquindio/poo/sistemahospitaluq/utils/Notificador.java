@@ -4,19 +4,39 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-    public class Notificador {
+import java.util.function.BiConsumer;
 
-        // Constructor privado para evitar instanciación
-        private Notificador() {}
+public class Notificador {
 
-        public static void enviarNotificacion(String destinatario, String mensaje) {
+    // Interfaz funcional que permite inyectar comportamiento para pruebas
+    static BiConsumer<String, String> manejadorNotificacion = Notificador::mostrarAlerta;
 
-            Platform.runLater(() -> {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Notificación");
-                alert.setHeaderText("Para: " + destinatario);
-                alert.setContentText(mensaje);
-                alert.showAndWait();
-            });
-        }
+    // Constructor privado para evitar instanciación
+    private Notificador() {}
+
+    public static void enviarNotificacion(String destinatario, String mensaje) {
+        manejadorNotificacion.accept(destinatario, mensaje);
     }
+
+    // Método real que muestra la alerta en JavaFX
+
+    private static void mostrarAlerta(String destinatario, String mensaje) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Notificación");
+            alert.setHeaderText("Para: " + destinatario);
+            alert.setContentText(mensaje);
+            alert.showAndWait();
+        });
+    }
+
+    // Permite sobrescribir el comportamiento en pruebas
+    public static void setManejadorNotificacion(BiConsumer<String, String> manejador) {
+        manejadorNotificacion = manejador;
+    }
+
+    // Permite restaurar el comportamiento original
+    public static void restaurarManejadorOriginal() {
+        manejadorNotificacion = Notificador::mostrarAlerta;
+    }
+}

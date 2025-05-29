@@ -40,4 +40,14 @@
             <TableColumn fx:id="colEspecialidad" text="Especialidad"/>
         </columns>
     </TableView>
+    <Label text="Horarios del Médico" style="-fx-font-weight: bold;"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="txtHorarioNuevo" promptText="Ej: Lunes 8:00 - 12:00" />
+        <Button text="Agregar Horario" onAction="#onAgregarHorario"/>
+    </HBox>
+
+    <ListView fx:id="listHorarios" prefHeight="100"/>
+
+    <Button text="Eliminar Horario Seleccionado" onAction="#onEliminarHorario"/>
 </VBox>

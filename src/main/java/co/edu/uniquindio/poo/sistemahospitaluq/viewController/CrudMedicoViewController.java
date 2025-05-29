@@ -4,6 +4,7 @@ import co.edu.uniquindio.poo.sistemahospitaluq.controller.UsuarioController;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Especialidad;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Hospital;
 import co.edu.uniquindio.poo.sistemahospitaluq.model.Medico;
+import co.edu.uniquindio.poo.sistemahospitaluq.utils.Notificador;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,8 @@ public class CrudMedicoViewController {
     @FXML private TableColumn<Medico, String> colNombre;
     @FXML private TableColumn<Medico, String> colCorreo;
     @FXML private TableColumn<Medico, String> colEspecialidad;
+    @FXML private TextField txtHorarioNuevo;
+    @FXML private ListView<String> listHorarios;
 
     private Hospital hospital;
     private UsuarioController usuarioController;
@@ -58,6 +61,8 @@ public class CrudMedicoViewController {
         txtCorreo.setText(m.getCorreo());
         txtTelefono.setText(m.getTelefono());
         cmbEspecialidad.setValue(m.getEspecialidad());
+
+        listHorarios.getItems().setAll(m.getHorarios());
     }
 
     @FXML
@@ -112,5 +117,26 @@ public class CrudMedicoViewController {
         alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();
+    }
+    @FXML
+    private void onAgregarHorario() {
+        String nuevoHorario = txtHorarioNuevo.getText();
+
+        if (medicoSeleccionado != null && nuevoHorario != null && !nuevoHorario.isBlank()) {
+            medicoSeleccionado.agregarHorario(nuevoHorario);
+            listHorarios.getItems().setAll(medicoSeleccionado.getHorarios());
+            txtHorarioNuevo.clear();
+            Notificador.enviarNotificacion(medicoSeleccionado.getNombre(), "Nuevo horario agregado: " + nuevoHorario);
+        }
+    }
+    @FXML
+    private void onEliminarHorario() {
+        String seleccionado = listHorarios.getSelectionModel().getSelectedItem();
+
+        if (medicoSeleccionado != null && seleccionado != null) {
+            medicoSeleccionado.getHorarios().remove(seleccionado);
+            listHorarios.getItems().setAll(medicoSeleccionado.getHorarios());
+            Notificador.enviarNotificacion(medicoSeleccionado.getNombre(), "Horario eliminado: " + seleccionado);
+        }
     }
 }

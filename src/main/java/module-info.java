@@ -4,6 +4,7 @@ module co.edu.uniquindio.poo.sistemahospitaluq {
     requires java.desktop;
 
 
+
     opens co.edu.uniquindio.poo.sistemahospitaluq.app to javafx.fxml;
     exports co.edu.uniquindio.poo.sistemahospitaluq.app;
 

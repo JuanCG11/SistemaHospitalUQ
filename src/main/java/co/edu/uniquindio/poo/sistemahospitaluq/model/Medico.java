@@ -2,6 +2,7 @@ package co.edu.uniquindio.poo.sistemahospitaluq.model;
 
 import co.edu.uniquindio.poo.sistemahospitaluq.utils.Notificador;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Medico extends Usuario implements IGestionHistorial {
@@ -18,6 +19,7 @@ public class Medico extends Usuario implements IGestionHistorial {
         this.horarios = new ArrayList<>();
         this.pacientesAsignados = new ArrayList<>();
         this.registros = new ArrayList<>();
+
     }
     @Override
     public String toString() {
@@ -69,6 +71,42 @@ public class Medico extends Usuario implements IGestionHistorial {
 
     public void setRegistros(ArrayList<HistorialMedico> registros) {
         this.registros = registros;
+    }
+    public boolean puedeAtender(LocalDateTime fechaCita) {
+        String diaSemana = fechaCita.getDayOfWeek().toString().toLowerCase(); // ej: monday
+        int hora = fechaCita.getHour();
+        int minuto = fechaCita.getMinute();
+        int minutosTotales = hora * 60 + minuto;
+
+        for (String horario : horarios) {
+            // Ejemplo de formato: "lunes 08:00-12:00"
+            String[] partes = horario.toLowerCase().split(" ");
+            if (partes.length != 2) continue;
+
+            String diaHorario = partes[0]; // lunes
+            String rango = partes[1];      // 08:00-12:00
+
+            if (!diaHorario.equals(diaSemana)) continue;
+
+            String[] horas = rango.split("-");
+            if (horas.length != 2) continue;
+
+            int inicio = convertirHoraAMinutos(horas[0]);
+            int fin = convertirHoraAMinutos(horas[1]);
+
+            if (minutosTotales >= inicio && minutosTotales <= fin) {
+                return true; // Está dentro del horario
+            }
+        }
+
+        return false; // No coincide con ningún horario
+    }
+
+    private int convertirHoraAMinutos(String horaStr) {
+        String[] partes = horaStr.split(":");
+        int h = Integer.parseInt(partes[0]);
+        int m = Integer.parseInt(partes[1]);
+        return h * 60 + m;
     }
 
     @Override
